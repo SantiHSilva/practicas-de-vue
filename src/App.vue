@@ -1,76 +1,28 @@
 <template>
-
-  <p>
-    Nombre pokemon
-  </p>
-
-  <input type="text"
-    v-model="nombrePokemon"
-    @input="nombrePokemon = nombrePokemon.toLowerCase()"
-    @change="buscarDatos"
-    class="border border-gray-300 rounded px-2 py-1"
-  >
-
-  <p>
-    respuesta api
-  </p>
-
-  <img v-if="informacionAPI" :src="informacionAPI.sprites.front_default" alt="">
-
-  <p
-    v-if="!informacionAPI"
-  >
-    NO SE ENCONTRO EL POKEMON
-  </p>
-
-  <button
-    v-if="informacionAPI"
-    @click="mostrarRespuesta = !mostrarRespuesta"
-  >
-    Mostrar respuesta API
-  </button>
-
-  <p v-if="mostrarRespuesta">
-    {{ informacionAPI }}
-  </p>
-
+  <div class="flex flex-col h-screen">
+    <header>
+      <h1>Mi Aplicación Vue</h1>
+    </header>
+    <main class="grow-1 overflow-auto">
+      <!-- ! Todas la visualización de las vistas van a estar dentro de main, el header permanecera siempre, y el footer tambien -->
+      <!-- ! Siendo una plantilla -->
+      texto que se va ver en todo lado
+      <router-view></router-view>
+    </main>
+    <footer>
+      <p>© 2024 Mi Aplicación Vue</p>
+    </footer>
+  </div>
 </template>
 
 <script>
 
-import axios from 'axios';
+import { RouterView } from 'vue-router';
 
 export default {
-  data(){
-    return {
-      nombrePokemon: "",
-      informacionAPI: null,
-      mostrarRespuesta: false,
-    }
-  },
-
-  methods: {
-    async buscarDatos(){
-      
-      if(!this.nombrePokemon) {
-        alert("Por favor ingresa un nombre de pokemon");
-        return;
-      };
-
-      const enlace = "https://pokeapi.co/api/v2/pokemon/" + this.nombrePokemon.toLowerCase();
-
-      try{
-        const respuesta = await axios.get(enlace);
-        this.informacionAPI = respuesta.data;
-        console.log(respuesta.data);
-      } catch (error) {
-        console.error("Error al buscar el pokemon:", error);
-        this.informacionAPI = null;
-        // alert("No se encontró el pokemon: " + this.nombrePokemon);
-      }
-
-    }
-  },
+  components: {
+    RouterView
+  }
 }
 
 </script>

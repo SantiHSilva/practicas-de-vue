@@ -1,16 +1,6 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import { router } from './router/router'
 
-createApp(App).mount('#app')
-
-class Persona{
-  constructor(nombre, edad){
-    this.nombre = nombre;
-    this.edad = edad;
-  }
-
-  saludar(){
-    console.log(`Hola, mi nombre es ${this.nombre} y tengo ${this.edad} años.`);
-  }
-}
+createApp(App).use(router).mount('#app')
